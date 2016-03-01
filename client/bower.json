@@ -1,0 +1,23 @@
+{
+  "name": "angular-app",
+  "authors": [
+    "mdn <dm.zgroupsoft@gmail.com>"
+  ],
+  "description": "A sample angular app.",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-route": "1.5.0",
+    "bootstrap": "3.3.6"
+  }
+}
