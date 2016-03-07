@@ -1,11 +1,12 @@
 class CreateDisplays < ActiveRecord::Migration
   def change
     create_table :displays do |t|
-      t.string :model, null: false
-      t.float :size
-      t.integer :response_time
-      t.boolean :is_ips, null: false, default: false
-      t.decimal :price
+      t.string :model, null: false, index: true
+      t.float :size, null: false, index: true
+      t.integer :response_time, index: true
+      t.boolean :is_ips, null: false, default: false, index: true
+      t.integer :price_cents, index: true
+
       t.references :manufacturer, index: true, null: false
       t.references :resolution, index: true, null: false
 
