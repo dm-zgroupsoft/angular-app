@@ -1,15 +1,15 @@
-var angularControllers = angular.module('angularControllers', ['angularServices']);
+angular.module('angularControllers', ['angularServices'])
 
-angularControllers.controller('DisplayListCtrl', ['$scope', '$location', 'Display',
-    function ($scope, $location, Display) {
-        $scope.currentPage = $location.search()['page'];
+    .controller('DisplayListCtrl', ['$scope', '$location', 'responseData',
+        function ($scope, $location, responseData) {
+            $scope.displays = responseData.records;
+            $scope.totalItems = responseData._metadata.total_count;
+            $scope.itemsPerPage = responseData._metadata.limit;
 
-        $scope.pageChanged = function () {
-            $location.search('page', $scope.currentPage);
-        };
-        $scope.maxSize = 5;
-        $scope.displays = Display.query({page: $scope.currentPage}, function(data, getResponseHeaders) {
-            var headers = getResponseHeaders();
-            $scope.totalItems = headers['x-total-entries'];
-        });
-    }]);
+            $scope.pageChanged = function () {
+                $location.search('offset', ($scope.currentPage - 1) * $scope.itemsPerPage);
+                $location.search('limit', $scope.itemsPerPage);
+            };
+
+            $scope.currentPage = 1 + Math.ceil(($location.search()['offset'] || 0) / $scope.itemsPerPage);
+        }]);

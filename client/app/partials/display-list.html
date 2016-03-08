@@ -3,10 +3,13 @@
         <div class="table-responsive">
             <table class="table">
                 <tr ng-repeat="display in displays">
-                    <td>{{display.model}}</td>
+                    <td>{{display.id}}</td>
+                    <td>{{display.manufacturer.title}} {{display.model}}</td>
                 </tr>
             </table>
-            <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="pageChanged()"></uib-pagination>
+            <uib-pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="5"
+                            class="pagination-sm" boundary-link-numbers="true"
+                            ng-change="pageChanged()"></uib-pagination>
         </div>
     </div>
 </div>
