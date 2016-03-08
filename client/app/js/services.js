@@ -1,8 +1,7 @@
-var angularServices = angular.module('angularServices', ['ngResource']);
-
-angularServices.factory('Display', ['$resource',
+angular.module('angularServices', ['ngResource'])
+.factory('Display', ['$resource',
     function ($resource) {
-        var baseUrl = 'http://localhost\\:3000/';
+        var baseUrl = 'http://localhost:3000/';
         return $resource(baseUrl + 'displays', {}, {
             query: {method: 'GET', isArray: true}
         });

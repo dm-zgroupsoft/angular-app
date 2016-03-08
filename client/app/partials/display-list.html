@@ -6,6 +6,7 @@
                     <td>{{display.model}}</td>
                 </tr>
             </table>
+            <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" ng-change="pageChanged()"></uib-pagination>
         </div>
     </div>
 </div>

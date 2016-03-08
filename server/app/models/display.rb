@@ -4,5 +4,5 @@ class Display < ActiveRecord::Base
 
   monetize :price_cents, allow_nil: true
 
-  self.per_page = 100
+  self.per_page = 10
 end
