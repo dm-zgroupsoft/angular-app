@@ -1,25 +1,18 @@
-var angularApp = angular.module('angularApp', ['ngResource', 'ngRoute', 'angularControllers', 'ui.bootstrap']);
-
-angularApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.when('/displays', {
-            templateUrl: 'partials/display-list.html',
-            controller: 'DisplayListCtrl',
-            resolve: {
-                responseData: ['Display', '$q', '$route', function (Display, $q, $route) {
-                    var deferred = $q.defer();
-                    Display.query({
-                        offset: $route.current.params.offset,
-                        limit: $route.current.params.limit
-                    }, function (successData) {
-                        deferred.resolve(successData);
-                    }, function (errorData) {
-                        deferred.reject();
-                    });
-                    return deferred.promise;
-                }]
-            }
-        }).otherwise({
-            redirectTo: '/displays'
-        });
+angular.module('angularApp', ['ngResource', 'ui.router', 'angularControllers', 'ui.bootstrap'])
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('displays', {
+                url: '/displays?offset&limit',
+                templateUrl: 'partials/display-list.html',
+                controller: 'DisplayListCtrl',
+                resolve: {
+                    responseData: ['Display', '$stateParams', function (Display, $stateParams) {
+                        return Display.query({
+                            offset: $stateParams.offset,
+                            limit: $stateParams.limit
+                        }).$promise;
+                    }]
+                }
+            });
+        $urlRouterProvider.otherwise('/displays');
     }]);
