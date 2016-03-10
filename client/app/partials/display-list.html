@@ -1,5 +1,10 @@
 <div class="container-fluid">
-    <div class="row">
+    <div ng-show="!isSuccess">
+        <span ng-repeat="error in errors">
+            {{error}}
+        </span>
+    </div>
+    <div class="row" ng-show="isSuccess">
         <div class="table-responsive">
             <table class="table">
                 <tr ng-repeat="display in displays">

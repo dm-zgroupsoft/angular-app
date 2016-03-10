@@ -4,5 +4,5 @@ class Display < ActiveRecord::Base
 
   monetize :price_cents, allow_nil: true
 
-  DEFAULT_LIMIT = 20
+  DEFAULT_PER_PAGE = 5
 end
