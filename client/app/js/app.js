@@ -1,13 +1,14 @@
-angular.module('angularApp', ['ngRoute', 'angularControllers', 'ui.bootstrap'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
-            .when('/displays', {
+angular.module('angularApp', ['ui.router', 'angularControllers', 'ui.bootstrap'])
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('displays', {
+                url: '/displays?offset&limit',
                 templateUrl: 'partials/display-list.html',
                 controller: 'DisplaysController',
                 resolve: {
-                    response: ['Display', '$q', '$route', function (Display, $q, $route) {
+                    response: ['Display', '$q', '$stateParams', function (Display, $q, $stateParams) {
                         var deferred = $q.defer();
-                        Display.query($route.current.params,
+                        Display.query($stateParams,
                             function (successData) {
                                 deferred.resolve(successData);
                             }, function (errorData) {
@@ -16,8 +17,6 @@ angular.module('angularApp', ['ngRoute', 'angularControllers', 'ui.bootstrap'])
                         return deferred.promise;
                     }]
                 }
-            })
-            .otherwise({
-                redirectTo: '/displays'
             });
+        $urlRouterProvider.otherwise('/displays');
     }]);
